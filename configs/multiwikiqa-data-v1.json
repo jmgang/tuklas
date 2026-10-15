@@ -1,0 +1,50 @@
+{
+  "dataset": "alexandrainst/multi-wiki-qa",
+  "revision": "9bdb3350487e399bd1cd873e1395290d636db5ce",
+  "license": "CC-BY-NC-SA-4.0",
+  "languages": ["tl", "en"],
+  "files": {
+    "tl": {
+      "path": "tl/train-00000-of-00001.parquet",
+      "bytes": 1703029,
+      "sha256": "8d1943fed9305325c242cf965fbd7f1214e2073554f6d0ed9d6b52a6cd088e02"
+    },
+    "en": {
+      "path": "en/train-00000-of-00001.parquet",
+      "bytes": 2082258,
+      "sha256": "8148ea39a225a20c2d9eb2172a09b9e3494d8bbacd3da9b24f5855f0c84e50a1"
+    }
+  },
+  "chunks": {
+    "unit": "original-unicode-character-offset",
+    "max_characters": 1024,
+    "overlap_characters": 128,
+    "boundary_rule": "fixed-window-independent-of-questions-and-answers",
+    "status": "candidate-layout-tokenizer-preflight-required-before-model-scoring"
+  },
+  "split": {
+    "unit": "article-content-connected-component",
+    "seed": "multiwikiqa-v1-20261004",
+    "development_fraction": 0.2,
+    "training_questions": false,
+    "duplicate_question_policy": "retain-one-identical-language-article-question-answer-record"
+  },
+  "retrieval": {
+    "candidate_corpus": "all-released-English-and-Tagalog-source-articles",
+    "primary_gold": "one-linked-original-source-article",
+    "parent_score": "maximum-segment-similarity",
+    "cutoffs": [1, 3, 5, 10],
+    "context_metric": "answer-span-coverage-in-the-actually-returned-best-chunks",
+    "top_k_counts": "unique-source-articles",
+    "additional_relevant_articles": "unjudged-not-confirmed-negative"
+  },
+  "training": {
+    "teacher": null,
+    "corpus": null,
+    "status": "not-started-separate-training-plan-required",
+    "evaluation_question_and_answer_training": false
+  },
+  "generation": {
+    "status": "not-started-reader-and-context-budget-not-yet-selected"
+  }
+}

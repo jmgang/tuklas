@@ -1,0 +1,46 @@
+{
+  "status": "fixed-before-new-training-and-evaluation",
+  "dataset": "DMIR01/DisastIR",
+  "revision": "65525d5cbee6b52a0db0b064e6315250287d5827",
+  "corpus_sha256": "422e53a2057e2f9113139d99193ed8430415e7a18058062a9affe5efe916b118",
+  "initial_student": "runs/disastir-512-rebuild-20261003-v2/model",
+  "potion_baseline": "models/potion-retrieval-6fc8051fab2a",
+  "verified_reference": "runs/pycon-repair-20261003-065954-4b06a8/verified-20261003T092225226208",
+  "training_source": "original-development-partition-only",
+  "validation_fraction": 0.2,
+  "split_seed": "disastir-ranking-repair-20261003",
+  "seed": 20261003,
+  "epochs": 9,
+  "batch_size": 64,
+  "learning_rate": 0.005,
+  "weight_decay": 0.01,
+  "warmup_fraction": 0.1,
+  "loss": "SentenceTransformers.MultipleNegativesRankingLoss+MatryoshkaLoss",
+  "matryoshka_dimensions": [
+    32,
+    64,
+    128,
+    256,
+    512
+  ],
+  "dimension": 512,
+  "dtype": "float32",
+  "checkpoint_evaluation_epochs": [
+    0,
+    3,
+    6,
+    9
+  ],
+  "checkpoint_selection": "full-corpus development-validation Recall@10 then nDCG@10; earliest on ties",
+  "positive_grade": 3,
+  "explicit_negative_grade": 0,
+  "cutoff": 10,
+  "latency_measurement": false,
+  "quality_models": [
+    "potion_retrieval",
+    "tokenlearn_retrieval_student"
+  ],
+  "protocol_note": "Authorized 512-dimensional DisastIR domain adaptation, not a byte-identical Potion reproduction. Same original development train/validation split, no test-based checkpoint selection; frozen 1,127-query test is already inspected and results remain post-hoc. No SQuAD, new dataset, paid compute or latency measurements.",
+  "hard_negative_count": 0,
+  "batch_packing": "legacy-safe"
+}

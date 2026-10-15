@@ -1,0 +1,122 @@
+{
+  "protocol": "multiwikiqa-sota-repair-v1",
+  "status": "design-frozen-paid-training-not-launched",
+  "problem": {
+    "teacher_combined_recall_at_10": 0.9760,
+    "current_best_student_combined_recall_at_10": 0.7576,
+    "absolute_gap": 0.2184,
+    "teacher_retention": 0.7762
+  },
+  "frozen_data": {
+    "dataset": "alexandrainst/multi-wiki-qa",
+    "revision": "9bdb3350487e399bd1cd873e1395290d636db5ce",
+    "parents": 1294,
+    "chunks": 6546,
+    "development_train_questions": 1734,
+    "development_validation_questions": 338,
+    "locked_heldout_questions": 7922,
+    "heldout_may_not_select_hyperparameters": true
+  },
+  "teacher": {
+    "model": "aisingapore/SEA-LION-E5-Embedding-600M",
+    "revision": "6a97cedd22714f3d4eb7c6fd1a452bf310899683",
+    "dimension": 1024
+  },
+  "controlled_ablations": [
+    {
+      "id": "A1",
+      "only_change": "correct both official PCA stages without reducing dimensionality",
+      "model2vec_pca_dims": 1024,
+      "tokenlearn_target_pca_dims": 1024,
+      "output_dimension": 1024,
+      "corpus": "approved_articles_only"
+    },
+    {
+      "id": "A2",
+      "prerequisite": "A1 passes development non-regression",
+      "only_change": "add one learned atomic query-role token",
+      "query_prefix": "[QRY] ",
+      "document_prefix": ""
+    },
+    {
+      "id": "A3",
+      "prerequisite": "A2 passes development non-regression",
+      "only_change": "replace one-negative margin training with positive-aware candidate lists",
+      "hard_negatives_per_query": 4,
+      "false_negative_filter": {
+        "type": "teacher_percentage_of_minimum_positive",
+        "maximum_fraction": 0.95,
+        "all_known_positive_ids_are_masked": true
+      },
+      "objectives": [
+        "teacher_listwise_kl_distribution",
+        "multiple_negatives_ranking",
+        "teacher_embedding_alignment"
+      ],
+      "no_duplicate_batches": true
+    },
+    {
+      "id": "A4",
+      "prerequisite": "A3 passes development non-regression and synthetic QA is quality-reviewed",
+      "only_change": "add bilingual synthetic retrieval supervision from the already-approved external corpus",
+      "languages": ["en", "tl"],
+      "query_types": ["natural_question", "keyword_query", "factual_claim"],
+      "benchmark_parents_are_excluded": true,
+      "quality_filter_required": true,
+      "title_to_passage_pairs_are_probe_only": true
+    },
+    {
+      "id": "A5",
+      "prerequisite": "full-width quality target is met",
+      "only_change": "train compact export dimensions and corpus-balanced vocabularies rather than blindly slicing/pruning",
+      "matryoshka_dimensions": [1024, 768, 512, 480, 384],
+      "diagnostic_under_100mb": {
+        "vocabulary_size": 180000,
+        "export_dimension": 480,
+        "export_dtype": "int8",
+        "hard_maximum_complete_artifact_bytes": 100000000,
+        "promotion_eligible_if_quality_gate_passes": true
+      },
+      "conference_candidate": {
+        "vocabulary_size": 64000,
+        "export_dimension": 384,
+        "export_dtype": "int8",
+        "hard_maximum_complete_artifact_bytes": 100000000,
+        "maximum_complete_artifact_bytes": 33554432,
+        "preferred_size_tier": true,
+        "promotion_eligible_if_quality_gate_passes": true
+      }
+    }
+  ],
+  "selection": {
+    "development_metrics": ["Recall@10", "nDCG@10"],
+    "required_slices": ["english", "tagalog", "combined"],
+    "reject_any_slice_regression": true,
+    "epoch_zero_is_always_a_candidate": true,
+    "hard_english_recall_at_10_floor": 0.90,
+    "hard_maximum_teacher_gap_per_language": 0.10,
+    "teacher_reference_recall_at_10": {
+      "en": 0.9835967193438687,
+      "tl": 0.9698060387922416
+    },
+    "reject_and_do_not_retain_model_on_failure": true,
+    "targets_are_hard_promotion_gates": true
+  },
+  "artifact_gate": {
+    "measurement": "sum of every packaged model file, not only model.safetensors",
+    "hard_maximum_complete_artifact_bytes": 100000000,
+    "preferred_complete_artifact_bytes": 33554432,
+    "runtime_peak_rss_reported_separately": true,
+    "latency_deferred": true
+  },
+  "sources": {
+    "model2vec_tokenlearn": "https://minish.ai/blog/2025-05-31-tokenlearn-release/",
+    "nvidia_domain_recipe": "https://huggingface.co/blog/nvidia/domain-specific-embedding-finetune",
+    "nemo_retrieval": "https://docs.nvidia.com/nemo/automodel/latest/recipes-e2e-examples/retrieval-finetune",
+    "sentence_transformers_static": "https://huggingface.co/blog/static-embeddings",
+    "sentence_transformers_losses": "https://www.sbert.net/docs/package_reference/sentence_transformer/losses.html",
+    "static_sentence_pca": "https://arxiv.org/abs/2506.04624",
+    "embed_distill": "https://arxiv.org/abs/2301.12005",
+    "listwise_specialization": "https://arxiv.org/abs/2502.19712"
+  }
+}

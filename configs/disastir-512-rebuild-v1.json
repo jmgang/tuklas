@@ -1,0 +1,17 @@
+{
+  "status": "authorized-new-512-dimensional-domain-student-not-full-potion-reproduction",
+  "target_dimension": 512,
+  "dtype": "float32",
+  "teacher": "models/e5-base-v2-f52bf8ec8c71",
+  "feature_directory": "runs/tokenlearn-features-v1",
+  "vocabulary_record": "runs/custom-vocabulary-v1.json",
+  "expected_rows": 239704,
+  "shuffle_seed": 20261001,
+  "tokenlearn_version": "0.2.1",
+  "device": "cpu",
+  "threads": 4,
+  "quantize_to": "float32",
+  "best_checkpoint_fix": "cloned state tensors; official TokenLearn algorithm otherwise unchanged",
+  "evaluation_dataset_change": false,
+  "paid_resources": false
+}

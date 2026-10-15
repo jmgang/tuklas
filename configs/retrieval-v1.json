@@ -1,0 +1,15 @@
+{
+  "status": "frozen-before-held-out-evaluation",
+  "quality_reference": "exact-full-corpus-dot-product-on-L2-normalized-vectors",
+  "primary_top_k": 10,
+  "secondary_top_k": 100,
+  "corpus_block_size": 4096,
+  "tie_break": "ascending-corpus-id",
+  "corpus_embedding_dtype": "float32",
+  "development_probe": {
+    "queries_per_category": 2,
+    "evenly_spaced_corpus_passages": 256,
+    "purpose": "format-shape-truncation-and-exact-retrieval-smoke-only; not a quality benchmark"
+  },
+  "held_out_policy": "do-not-score-or-inspect-retrieval-results-until-final-frozen-run"
+}

@@ -1,0 +1,17 @@
+{
+  "status": "frozen-before-held-out-evaluation",
+  "purpose": "illustrative-CPU-only-retrieval-service; not-a-real-production-SLA",
+  "teacher_reference": "teacher",
+  "quality": {
+    "maximum_absolute_ndcg_at_10_loss": 0.03,
+    "maximum_absolute_known_positive_recall_at_100_loss": 0.05
+  },
+  "operational": {
+    "maximum_single_query_end_to_end_p95_ms": 100.0,
+    "maximum_model_artifact_mib": 64.0,
+    "maximum_peak_process_rss_gib": 4.0,
+    "minimum_end_to_end_p95_speedup_over_teacher": 2.0
+  },
+  "decision_rule": "A student is an illustrative replacement candidate only if every listed quality and operational constraint passes. Report every failed condition; do not tune the thresholds after held-out inspection.",
+  "caveat": "Known-positive recall uses incomplete pooled judgments, and timings are from one local machine. A real deployment needs its own SLOs and human-reviewed questions."
+}

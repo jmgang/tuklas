@@ -1,0 +1,31 @@
+{
+  "status": "training-text-verified-model-training-not-started",
+  "benchmark_run": "runs/multiwikiqa-preparation-20261004-v1",
+  "benchmark_protocol": "configs/multiwikiqa-data-v1.json",
+  "training_text_run": "runs/multiwikiqa-training-text-20261004-v5",
+  "training_text_manifest_sha256": "542adb6e81060ee64c97ccf570cfedbe62532aaf52ac3fa8675776a6661bedb3",
+  "training_text_verification": "runs/multiwikiqa-training-text-20261004-v5/verification-20261003T185455Z-3c9a271e.json",
+  "training_files": {
+    "en": {
+      "path": "runs/multiwikiqa-training-text-20261004-v5/training.en.jsonl",
+      "rows": 100000,
+      "sha256": "b5169afeea3a24b0eed905deef610c30d74b69426b0dc34a66d1d9b514c80a1e"
+    },
+    "tl": {
+      "path": "runs/multiwikiqa-training-text-20261004-v5/training.tl.jsonl",
+      "rows": 75658,
+      "sha256": "55d54eb2ad72d89dfeaafaf5f021049e51511173d271d0e4d0659d33445d2404"
+    }
+  },
+  "teacher": null,
+  "student_dimensions": 512,
+  "student_libraries": ["model2vec", "tokenlearn"],
+  "training_started": false,
+  "remaining_gates": [
+    "Select and pin multilingual teacher and comparison baselines",
+    "Validate teacher tokenizer limits for training passages before featurizing",
+    "Freeze article-disjoint training/validation split and training hyperparameters",
+    "Resolve benchmark QA semantic review and final common evaluation layout before scoring"
+  ],
+  "old_disastir_experiments": "preserved-without-modification"
+}

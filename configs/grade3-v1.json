@@ -1,0 +1,19 @@
+{
+  "status": "posthoc-evaluation-repair",
+  "dataset": "DMIR01/DisastIR",
+  "task": "QA",
+  "split": "existing-heldout",
+  "corpus_sha256": "422e53a2057e2f9113139d99193ed8430415e7a18058062a9affe5efe916b118",
+  "grade": 3,
+  "single_selection": "exactly-one-raw-grade3-and-exactly-one-mapped-grade3",
+  "all_selection": "at-least-one-mapped-grade3",
+  "retrieval": "exact-full-corpus-l2-normalized-dot-product",
+  "top_k": 100,
+  "models": [
+    "teacher",
+    "potion_retrieval",
+    "plain_student",
+    "custom_student",
+    "tokenlearn_custom_student"
+  ]
+}

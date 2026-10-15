@@ -1,0 +1,68 @@
+{
+  "protocol": "multiwikiqa-cohere-multilingual-v3-eval-v1",
+  "status": "scaffolded-not-executed",
+  "aws": {
+    "profile": "admin-general",
+    "region": "ap-southeast-1"
+  },
+  "model": {
+    "provider": "Cohere via Amazon Bedrock",
+    "model_id": "cohere.embed-multilingual-v3",
+    "dimension": 1024,
+    "document_input_type": "search_document",
+    "query_input_type": "search_query",
+    "truncate": "NONE",
+    "embedding_types": ["float"],
+    "maximum_texts_per_request": 96,
+    "maximum_input_characters": 2048,
+    "full_content": true
+  },
+  "tokenizer": {
+    "repository": "CohereLabs/Cohere-embed-multilingual-v3.0",
+    "revision": "4cb7185c1ad1d4931fb39122308e9bcc9e3fe043",
+    "snapshot": "models/cohere-multilingual-v3-tokenizer-4cb7185c1ad1",
+    "tokenizer_json_sha256": "62c24cdc13d4c9952d63718d6c9fa4c287974249e16b7ade6d5a85e7bbb75626",
+    "sentencepiece_sha256": "cfc8146abe2a0488e9e2a0c56de7952f7c11ab059eca145a0a727afce0db2865",
+    "provider_token_limit": 512,
+    "safe_token_limit": 480,
+    "segmentation": "lossless-original-text-offsets"
+  },
+  "dataset": {
+    "language": "tl",
+    "partition": "evaluation",
+    "questions": 3984,
+    "parents": 1294,
+    "chunks": 6546,
+    "searchable_segments": 6842,
+    "split_chunks": 296,
+    "layout": "runs/pycon-compact-sota-20261005-055331-d48482/verification-20261005T090654Z/evaluation/shared-layout.json",
+    "layout_sha256": "740b0b97e406e13be18af14c440116f34e17cd3b1c85bcf540d0ed2424b81141",
+    "annotations": "runs/pycon-compact-sota-20261005-055331-d48482/verification-20261005T090654Z/evaluation/annotations.all.jsonl",
+    "annotations_sha256": "5e4cb1d6550aa74ad5f3d9a1269b079a5077094311b1a5c752dd45f8037aef7d"
+  },
+  "retrieval": {
+    "similarity": "cosine",
+    "search": "exact-exhaustive",
+    "segment_reduction": "maximum-similarity-per-parent",
+    "cutoff": 10,
+    "unique_parent_results": true,
+    "vector_pooling": false
+  },
+  "evaluation": {
+    "metrics": [
+      "Recall@1",
+      "Recall@3",
+      "Recall@5",
+      "Recall@10",
+      "MRR@10",
+      "nDCG@10",
+      "AnswerSpanCoverage@1",
+      "AnswerSpanCoverage@3",
+      "AnswerSpanCoverage@5",
+      "AnswerSpanCoverage@10"
+    ],
+    "latency_deferred": true,
+    "server_memory_unavailable": true,
+    "server_model_size_unavailable": true
+  }
+}

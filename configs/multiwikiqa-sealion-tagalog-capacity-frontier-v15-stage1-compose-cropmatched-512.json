@@ -1,0 +1,122 @@
+{
+  "allowed_languages": [
+    "tl"
+  ],
+  "candidates": [
+    {
+      "dimension": 512,
+      "dtype": "int8",
+      "hard_maximum_complete_artifact_bytes": 140000000,
+      "id": "full_parent_250k_512",
+      "vocabulary_mode": "full-parent"
+    }
+  ],
+  "evaluation": {
+    "development_language": "tl",
+    "development_questions": 197,
+    "heldout_language": "tl",
+    "heldout_questions": 3984,
+    "stage_metrics": [
+      "direct_model2vec",
+      "post_tokenlearn",
+      "post_retrieval_float32",
+      "post_export_int8"
+    ]
+  },
+  "language": "tl",
+  "protocol": "multiwikiqa-sealion-tagalog-capacity-frontier-v15-stage1-compose-cropmatched-512",
+  "quality": {
+    "failed_candidate_model_package_retained": false,
+    "maximum_teacher_recall_at_10_gap": 0.1,
+    "minimum_development_recall_at_10": 0.8746192893401015,
+    "selection_partition": "development-only"
+  },
+  "status": "v15-stage1-composition-512",
+  "teacher": {
+    "dimension": 1024,
+    "model": "aisingapore/SEA-LION-E5-Embedding-600M",
+    "revision": "6a97cedd22714f3d4eb7c6fd1a452bf310899683"
+  },
+  "training": {
+    "dynamic_remine_after_epochs": [],
+    "hard_negatives_per_query": 4,
+    "heldout_questions_forbidden": true,
+    "query_vector_distillation_weight": 0.0,
+    "ranking_data_expansion": {
+      "condition": "v14: stage-1 data scale, 1M -> 1.98M pairs at the proven 512d",
+      "heldout_forbidden": true,
+      "minimum_safely_mined_pairs": 15000,
+      "source": "approved-training-corpus-only"
+    },
+    "ranking_search": "greedy-rollback",
+    "retrieval_batch_size": 64,
+    "retrieval_early_stopping_patience": 0,
+    "retrieval_epochs": 32,
+    "retrieval_learning_rate": 0.001,
+    "retrieval_lr_schedule": [],
+    "retrieval_query_language": "tl",
+    "tokenlearn_best_validation_checkpoint_required": true,
+    "tokenlearn_checkpoint_selection": "validation-loss",
+    "tokenlearn_corpus_language": "tl",
+    "unsupervised_pretraining": {
+      "admitted_bytes": 551826654,
+      "admitted_sha256": "cb2525a2b12324c88bca9175e2cf6837062e7dfce6a96f1cf206c9cabb6ec0e5",
+      "batch_size": 2048,
+      "build_arguments": {
+        "crop_target": 0,
+        "crops_per_passage": 6,
+        "cross_passage_target": 9875,
+        "inverse_cloze_per_passage": 7,
+        "inverse_cloze_target": 0,
+        "target": 548619
+      },
+      "built_in_aws": true,
+      "caveat": "volume-matched control for nocrop-v15: EXACTLY the same 548,619 pairs, but crop-heavy (30.6%) with cross-passage held to the v14 share (1.8% vs 32.4%). This is the only pair in the set that varies composition at fixed volume, so it is the arm that decides whether composition or volume produced the v14 effect.",
+      "composition": {
+        "cross-passage-same-article": 9875,
+        "first-sentence-to-rest": 55541,
+        "independent-crop": 167740,
+        "inverse-cloze": 287994,
+        "title-to-passage": 27469
+      },
+      "composition_share": {
+        "cross-passage-same-article": 0.018,
+        "first-sentence-to-rest": 0.101238,
+        "independent-crop": 0.30575,
+        "inverse-cloze": 0.524944,
+        "title-to-passage": 0.050069
+      },
+      "constructions": [
+        "cross-passage-same-article",
+        "first-sentence-to-rest",
+        "independent-crop",
+        "inverse-cloze",
+        "title-to-passage"
+      ],
+      "design_note": "this arm alone does not separate composition from volume. The separating comparison is nocrop-v15 vs cropmatched-v15: both are exactly 548,619 pairs, differing only in crop share (0% vs ~30%) and cross-passage share (32.4% vs 1.8%). balancedfull-v15 then measures what the extra 1.37M crops are worth on top.",
+      "epochs": 16,
+      "first_sentence_relabel_note": "the first-sentence/inverse-cloze reorder is a RELABELING, not new signal: for the leading sentence both constructions emit byte-identical query and document, and the pair sums are equal (340,973+2,562 = 287,994+55,541 = 343,535). Attribute nothing to it.",
+      "heldout_questions_read": false,
+      "learning_rate": 0.001,
+      "llm_generated": false,
+      "objective": "in-batch cross entropy (MNRL); no teacher scores",
+      "pairs": 548619,
+      "source": "approved Tagalog corpus; inverse cloze + title + first-sentence + cross-passage + independent crop",
+      "supersedes_confounded_comparison": "the v14 1M arm had no cross-passage or first-sentence pairs at all and also used a different --inverse-cloze-per-passage (363,544 vs the 340,973 every other build exhausts at), so its +0.83 held-out deficit to the 2M arm confounds at least three changes with volume",
+      "tokenization": "once, reused across epochs"
+    },
+    "v8_comparison": {
+      "epochs32_recall_at_10": 0.8781725888324873,
+      "greedy_512_recall_at_10": 0.852791878172589,
+      "greedy_control_recall_at_10": 0.8324873096446701,
+      "report_cohort_questions": 197,
+      "selection_cohort_questions": 129,
+      "stage1_512_1M_dev": 0.9289340101522843,
+      "stage1_512_1M_heldout": 0.886546,
+      "stage1_749k_dev": 0.918782,
+      "straight_search_regression_432": 0.7817258883248731,
+      "straight_search_regression_512": 0.751269035532995,
+      "teacher_heldout": 0.9658634538152611
+    }
+  }
+}

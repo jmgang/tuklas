@@ -1,0 +1,46 @@
+{
+  "dataset": "DMIR01/DisastIR",
+  "revision": "65525d5cbee6b52a0db0b064e6315250287d5827",
+  "task": "QA",
+  "corpus_file": "corpus.jsonl",
+  "corpus_sha256": "422e53a2057e2f9113139d99193ed8430415e7a18058062a9affe5efe916b118",
+  "split_seed": "pycon-davao-2026-full-qa-v1",
+  "evaluation_fraction": 0.8,
+  "positive_relevance_threshold": 1,
+  "primary_metric": "nDCG@10",
+  "secondary_metrics": ["Recall@10", "Recall@100", "MRR@10"],
+  "categories": {
+    "biological": {
+      "query_sha256": "3d6b8f81b0bfd44f06394aaa5e2ae9c6cfb2e07814b545f8cf7cdd9f990d0069",
+      "qrels_sha256": "c7cb315a79d4e887ef765d9c8e2c409d0ff1c195aaa2acaf72a62ebb8486efd0"
+    },
+    "chemical": {
+      "query_sha256": "071a501f6ebf2f73886b1b0d9e102040fd87bd30b0078851b0c1ea0ea76b7e7b",
+      "qrels_sha256": "808be93180e33df302b5290dedbd3108ef8d2ce4c861bce7ac20fd229715df7e"
+    },
+    "environmental": {
+      "query_sha256": "fdcf632c3045429392700fb7f65dbc7588159735a594db68df0a6a33974f89b1",
+      "qrels_sha256": "6f7986f3528189fe1651d63158dd2040c589bd2e1839276c773829cfce3df31c"
+    },
+    "extraterrestrial": {
+      "query_sha256": "45a06e8228be2b3225bf2ff0160f47b2fb88b448c232d56e6e9dadc5f98ae942",
+      "qrels_sha256": "e2fdf5845e931a7ffdc6039e4a787d660a626885ba022932ca509b608cd8345e"
+    },
+    "geohazard": {
+      "query_sha256": "5e8217aa75884542c643a526773d98a4f0ef226bcdc10517285ecbf54baa3c5c",
+      "qrels_sha256": "227d24101f92a4fbb6bf00ffe181911437337c5baf0ae160deaa7ec944e1f69c"
+    },
+    "meteorological_hydrological": {
+      "query_sha256": "55f72c9283e1aa14beee168e34f7ada06fe4e0c48ae941cadf32ff12b65c47ea",
+      "qrels_sha256": "31cbf6accfa220eed04abd0bfa024d791b252b235fcd663e945cb161e3a872b9"
+    },
+    "societal": {
+      "query_sha256": "30fce56d02426eee167b3aa4dcd6cf76447add42ce2cb71dd16141819064cbf2",
+      "qrels_sha256": "57155320297a5eb0019ef9fe0790bd0a9deb55906949c9825bedce4be8459700"
+    },
+    "technological": {
+      "query_sha256": "5f986b5ba4e8ec533db3ec40291bd80d6e05122dc80b711eb15efd4c87dfae64",
+      "qrels_sha256": "b8c6d873f89faa28fdf1de9e6fe86f206b01a62e9861bfecd278e13a4fc33061"
+    }
+  }
+}

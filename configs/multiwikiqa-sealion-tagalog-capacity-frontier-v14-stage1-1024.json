@@ -1,0 +1,98 @@
+{
+  "protocol": "multiwikiqa-sealion-tagalog-capacity-frontier-v14-stage1-1024",
+  "status": "frozen-v14-stage1-at-full-teacher-width-1024",
+  "language": "tl",
+  "allowed_languages": [
+    "tl"
+  ],
+  "teacher": {
+    "model": "aisingapore/SEA-LION-E5-Embedding-600M",
+    "revision": "6a97cedd22714f3d4eb7c6fd1a452bf310899683",
+    "dimension": 1024
+  },
+  "candidates": [
+    {
+      "id": "full_parent_250k_1024",
+      "vocabulary_mode": "full-parent",
+      "dimension": 1024,
+      "dtype": "int8",
+      "hard_maximum_complete_artifact_bytes": 300000000
+    }
+  ],
+  "training": {
+    "tokenlearn_corpus_language": "tl",
+    "retrieval_query_language": "tl",
+    "tokenlearn_best_validation_checkpoint_required": true,
+    "tokenlearn_checkpoint_selection": "validation-loss",
+    "query_vector_distillation_weight": 0.0,
+    "retrieval_learning_rate": 0.001,
+    "retrieval_epochs": 32,
+    "retrieval_batch_size": 64,
+    "retrieval_lr_schedule": [],
+    "dynamic_remine_after_epochs": [],
+    "retrieval_early_stopping_patience": 0,
+    "hard_negatives_per_query": 4,
+    "heldout_questions_forbidden": true,
+    "ranking_search": "greedy-rollback",
+    "ranking_data_expansion": {
+      "condition": "v14: stage-1 at full teacher width; PCA is identity, no truncation",
+      "source": "approved-training-corpus-only",
+      "heldout_forbidden": true,
+      "minimum_safely_mined_pairs": 15000
+    },
+    "v8_comparison": {
+      "greedy_control_recall_at_10": 0.8324873096446701,
+      "greedy_512_recall_at_10": 0.852791878172589,
+      "report_cohort_questions": 197,
+      "selection_cohort_questions": 129,
+      "straight_search_regression_432": 0.7817258883248731,
+      "straight_search_regression_512": 0.751269035532995,
+      "epochs32_recall_at_10": 0.8781725888324873,
+      "stage1_512_dev": 0.9289340101522843,
+      "stage1_512_heldout": 0.886546,
+      "teacher_heldout": 0.9658634538152611,
+      "teacher_development": 0.9746192893401014,
+      "pca_retained_variance_512": 0.9699453711509705,
+      "pca_retained_variance_1024": 1.0,
+      "expected_training_package_bytes": 265085675,
+      "expected_pruned_package_bytes": 74318463,
+      "post_hoc_prune_planned": true
+    },
+    "unsupervised_pretraining": {
+      "pairs": 1000000,
+      "epochs": 8,
+      "batch_size": 2048,
+      "learning_rate": 0.001,
+      "objective": "in-batch cross entropy (MNRL); no teacher scores",
+      "source": "approved Tagalog corpus; inverse cloze + independent crop + title",
+      "llm_generated": false,
+      "heldout_questions_read": false,
+      "tokenization": "once, reused across epochs",
+      "previous_attempt": {
+        "epochs": 2,
+        "stage1_recall_at_10": 0.796954,
+        "final_after_ranking": 0.84264,
+        "diagnosis": "stage-1 not converged (loss 4.04 -> 2.46 still falling); ranking then stalled at ep2 because the greedy search rejects almost everything from a high starting point"
+      },
+      "admitted_sha256": "1efc19279dd7bf50e21efc03a0a4d7374e1482d1c6a80f55da5f2278da140ac2"
+    }
+  },
+  "evaluation": {
+    "development_language": "tl",
+    "heldout_language": "tl",
+    "development_questions": 197,
+    "heldout_questions": 3984,
+    "stage_metrics": [
+      "direct_model2vec",
+      "post_tokenlearn",
+      "post_retrieval_float32",
+      "post_export_int8"
+    ]
+  },
+  "quality": {
+    "selection_partition": "development-only",
+    "minimum_development_recall_at_10": 0.8746192893401015,
+    "maximum_teacher_recall_at_10_gap": 0.1,
+    "failed_candidate_model_package_retained": false
+  }
+}

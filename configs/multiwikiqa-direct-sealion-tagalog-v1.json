@@ -1,0 +1,68 @@
+{
+  "protocol": "multiwikiqa-direct-sealion-tagalog-v1",
+  "status": "frozen-tagalog-only-sealion-method",
+  "language": "tl",
+  "allowed_languages": ["tl"],
+  "teacher": {
+    "model": "aisingapore/SEA-LION-E5-Embedding-600M",
+    "revision": "6a97cedd22714f3d4eb7c6fd1a452bf310899683",
+    "dimension": 1024
+  },
+  "model2vec": {
+    "entrypoint": "model2vec.distill.distill",
+    "model_name": "aisingapore/SEA-LION-E5-Embedding-600M",
+    "vocabulary_source": "runs/multiwikiqa-tagalog-vocabulary-20261006-v1/vocabulary-tagalog-only-80000.json",
+    "vocabulary_source_sha256": "9a41d1510b0566407c50bf3ef7340c5d6b291a5cb7b4b929971d47725089dada",
+    "vocabulary_size": 80000,
+    "tokenizer_pruning": {
+      "method": "official model2vec token_remove_pattern",
+      "policy": "retain the selected Tagalog custom surface vocabulary plus required special tokens",
+      "manual_tokenizer_replacement": false
+    },
+    "full_width_pca_dims": "auto",
+    "training_dtype": "float32",
+    "pooling": "mean",
+    "sif_coefficient": 0.0001
+  },
+  "tokenlearn": {
+    "repository": "https://github.com/MinishLab/tokenlearn",
+    "commit": "e0c3d28bd46a7fe6db84259d10201f8c50596f97",
+    "initialization_mode": "same-parent-direct-child",
+    "model_name": "aisingapore/SEA-LION-E5-Embedding-600M",
+    "featurization_model": "aisingapore/SEA-LION-E5-Embedding-600M",
+    "initialization_parent_model": "aisingapore/SEA-LION-E5-Embedding-600M"
+  },
+  "training": {
+    "tokenlearn_corpus_language": "tl",
+    "retrieval_query_language": "tl",
+    "retrieval_learning_rate": 0.001,
+    "retrieval_epochs": 8,
+    "hard_negatives_per_query": 4,
+    "teacher_listwise_distillation": true,
+    "heldout_questions_forbidden": true
+  },
+  "evaluation": {
+    "development_language": "tl",
+    "heldout_language": "tl",
+    "development_questions": 197,
+    "heldout_questions": 3984
+  },
+  "export": {
+    "dimension": 1024,
+    "dtype": "int8",
+    "hard_maximum_complete_artifact_bytes": 100000000
+  },
+  "quality": {
+    "selection_partition": "development-only",
+    "tagalog_maximum_teacher_recall_at_10_gap": 0.10,
+    "failed_candidate_model_package_retained": false
+  },
+  "forbidden": [
+    "English training records",
+    "English development records",
+    "English heldout records",
+    "Potion initialization",
+    "any neural parent other than the pinned SEA-LION parent",
+    "heldout-based checkpoint or hyperparameter selection"
+  ]
+}

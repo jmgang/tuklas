@@ -1,0 +1,61 @@
+{
+  "protocol": "multiwikiqa-sealion-tagalog-capacity-frontier-v5-512",
+  "status": "scaffolded-not-launched-full-parent-512-retrieval-selected-query-distilled-dynamic-ranking",
+  "language": "tl",
+  "allowed_languages": ["tl"],
+  "teacher": {
+    "model": "aisingapore/SEA-LION-E5-Embedding-600M",
+    "revision": "6a97cedd22714f3d4eb7c6fd1a452bf310899683",
+    "dimension": 1024
+  },
+  "candidates": [
+    {
+      "id": "full_parent_250k_512",
+      "vocabulary_mode": "full-parent",
+      "dimension": 512,
+      "dtype": "int8",
+      "hard_maximum_complete_artifact_bytes": 140000000
+    }
+  ],
+  "training": {
+    "tokenlearn_corpus_language": "tl",
+    "retrieval_query_language": "tl",
+    "tokenlearn_best_validation_checkpoint_required": true,
+    "tokenlearn_checkpoint_selection": "development-retrieval",
+    "query_vector_distillation_weight": 1.0,
+    "retrieval_learning_rate": 0.001,
+    "retrieval_epochs": 32,
+    "retrieval_lr_schedule": [
+      {"start_epoch": 1, "learning_rate": 0.001},
+      {"start_epoch": 9, "learning_rate": 0.0005},
+      {"start_epoch": 17, "learning_rate": 0.00025}
+    ],
+    "dynamic_remine_after_epochs": [8, 16, 24],
+    "retrieval_early_stopping_patience": 4,
+    "hard_negatives_per_query": 4,
+    "heldout_questions_forbidden": true,
+    "ranking_data_expansion": {
+      "condition": "retrieval-selected-tokenlearn-query-distillation-and-dynamic-remine",
+      "source": "approved-training-corpus-only",
+      "heldout_forbidden": true,
+      "minimum_safely_mined_pairs": 15000
+    }
+  },
+  "evaluation": {
+    "development_language": "tl",
+    "heldout_language": "tl",
+    "development_questions": 197,
+    "heldout_questions": 3984,
+    "stage_metrics": [
+      "direct_model2vec",
+      "post_tokenlearn",
+      "post_retrieval_float32",
+      "post_export_int8"
+    ]
+  },
+  "quality": {
+    "selection_partition": "development-only",
+    "maximum_teacher_recall_at_10_gap": 0.10,
+    "failed_candidate_model_package_retained": false
+  }
+}

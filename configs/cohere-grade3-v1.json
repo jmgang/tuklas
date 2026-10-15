@@ -1,0 +1,36 @@
+{
+  "dataset": "DMIR01/DisastIR",
+  "revision": "65525d5cbee6b52a0db0b064e6315250287d5827",
+  "corpus_sha256": "422e53a2057e2f9113139d99193ed8430415e7a18058062a9affe5efe916b118",
+  "reference_run": "runs/disastir-grade3-3735cd2855af",
+  "primary_cohort": "all-mapped-grade3",
+  "expected_query_count": 1127,
+  "expected_passage_count": 239704,
+  "top_k": 10,
+  "bootstrap_repetitions": 2000,
+  "bootstrap_seed": 20261001,
+  "aws_profile": "admin-general",
+  "aws_region": "ap-southeast-1",
+  "batch_size": 96,
+  "workers": 4,
+  "tokens_per_minute": 285000,
+  "estimated_maximum_cost_usd_per_model": 15,
+  "models": {
+    "cohere_v3": {
+      "model_id": "cohere.embed-english-v3",
+      "dimension": 1024,
+      "truncate": "END",
+      "input_price_usd_per_million_tokens": 0.10,
+      "price_source": "https://aws.amazon.com/bedrock/pricing/",
+      "price_status": "published-AWS-Cohere-embedding-example; estimate-not-bill"
+    },
+    "cohere_v4": {
+      "model_id": "global.cohere.embed-v4:0",
+      "dimension": 1536,
+      "truncate": "RIGHT",
+      "input_price_usd_per_million_tokens": 0.12,
+      "price_source": "https://modelavailability.com/models/cohere/embed-v4",
+      "price_status": "secondary-list-price-estimate; AWS-rate-not-independently-confirmed"
+    }
+  }
+}

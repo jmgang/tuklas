@@ -1,0 +1,79 @@
+{
+  "protocol": "multiwikiqa-sealion-tagalog-capacity-frontier-v11-restore-512",
+  "status": "frozen-v11-ranking-only-restore-of-the-173-of-197-result-512",
+  "language": "tl",
+  "allowed_languages": [
+    "tl"
+  ],
+  "teacher": {
+    "model": "aisingapore/SEA-LION-E5-Embedding-600M",
+    "revision": "6a97cedd22714f3d4eb7c6fd1a452bf310899683",
+    "dimension": 1024
+  },
+  "candidates": [
+    {
+      "id": "full_parent_250k_512",
+      "vocabulary_mode": "full-parent",
+      "dimension": 512,
+      "dtype": "int8",
+      "hard_maximum_complete_artifact_bytes": 140000000
+    }
+  ],
+  "training": {
+    "tokenlearn_corpus_language": "tl",
+    "retrieval_query_language": "tl",
+    "tokenlearn_best_validation_checkpoint_required": true,
+    "tokenlearn_checkpoint_selection": "validation-loss",
+    "query_vector_distillation_weight": 0.0,
+    "retrieval_learning_rate": 0.001,
+    "retrieval_epochs": 32,
+    "retrieval_batch_size": 64,
+    "retrieval_lr_schedule": [],
+    "dynamic_remine_after_epochs": [],
+    "retrieval_early_stopping_patience": 0,
+    "hard_negatives_per_query": 4,
+    "heldout_questions_forbidden": true,
+    "ranking_search": "greedy-rollback",
+    "ranking_data_expansion": {
+      "condition": "v11: ranking-only continuation from the preserved checkpoint",
+      "source": "approved-training-corpus-only",
+      "heldout_forbidden": true,
+      "minimum_safely_mined_pairs": 15000
+    },
+    "v8_comparison": {
+      "greedy_control_recall_at_10": 0.8324873096446701,
+      "greedy_512_recall_at_10": 0.852791878172589,
+      "report_cohort_questions": 197,
+      "selection_cohort_questions": 129,
+      "straight_search_regression_432": 0.7817258883248731,
+      "straight_search_regression_512": 0.751269035532995,
+      "epochs32_recall_at_10": 0.8781725888324873
+    },
+    "ranking_restore": {
+      "s3_prefix": "pycon-davao-model2vec/pycon-sealion-frontier-512-20261006-141331-041d87/results/checkpoints/",
+      "source_job": "pycon-sealion-frontier-512-20261006-141331-041d87",
+      "weights_sha256": "a60909b2780af31e872202075a8833238a6969c15f02908e773067a65657c305",
+      "tokenlearn_recomputed": false,
+      "restores": "float32 250000x512 table, [QRY]-expanded tokenizer, target PCA",
+      "reason": "the 173/197 package was destroyed by a gate that ran before preservation"
+    }
+  },
+  "evaluation": {
+    "development_language": "tl",
+    "heldout_language": "tl",
+    "development_questions": 197,
+    "heldout_questions": 3984,
+    "stage_metrics": [
+      "direct_model2vec",
+      "post_tokenlearn",
+      "post_retrieval_float32",
+      "post_export_int8"
+    ]
+  },
+  "quality": {
+    "selection_partition": "development-only",
+    "minimum_development_recall_at_10": 0.8746192893401015,
+    "maximum_teacher_recall_at_10_gap": 0.1,
+    "failed_candidate_model_package_retained": false
+  }
+}

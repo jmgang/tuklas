@@ -1,0 +1,70 @@
+{
+  "protocol": "sealion-two-students-v1",
+  "teacher": {
+    "model_id": "aisingapore/SEA-LION-E5-Embedding-600M",
+    "revision": "6a97cedd22714f3d4eb7c6fd1a452bf310899683",
+    "dimension": 1024,
+    "max_seq_length": 512,
+    "document_prompt": "",
+    "trust_remote_code": false,
+    "precision": "float32"
+  },
+  "initialization": {
+    "library": "model2vec",
+    "version": "0.9.0",
+    "entrypoint": "model2vec.distill.distill",
+    "pca_dims": null,
+    "quantize_to": "float32",
+    "sif_coefficient": 0.0001,
+    "vocabulary": null,
+    "vocabulary_quantization": null,
+    "pooling": "mean",
+    "same_saved_initial_model_for_both_arms": true
+  },
+  "tokenlearn": {
+    "repository": "https://github.com/MinishLab/tokenlearn",
+    "commit": "e0c3d28bd46a7fe6db84259d10201f8c50596f97",
+    "recipe": "current-official-TokenLearn-2.0",
+    "featurize_entrypoint": "tokenlearn.featurize._encode",
+    "training_entrypoint": "python -m tokenlearn.train",
+    "target": "mean contextual token embeddings excluding boundary special tokens",
+    "target_pca_dims": null,
+    "batch_size": 256,
+    "learning_rate": 0.001,
+    "early_stopping_patience": 5,
+    "random_seed": 42,
+    "validation": "stable article hash; approximately 10%; once per complete epoch",
+    "official_objective": "cosine loss after training-only linear head",
+    "official_export": "static token vectors with frozen token weighting; training head not exported",
+    "adapters": ["explicit actual padding token for initialization and collation", "article-disjoint validation", "strict no-truncation preflight", "immutable checkpoint storage and telemetry"]
+  },
+  "arms": {
+    "external_wikipedia": {
+      "source_dataset": "wikimedia/wikipedia",
+      "source_revision": "b04c8d1ceb2f5cd4588862100d08de323dccfbaa",
+      "files": {
+        "training.en.jsonl": {"path": "runs/multiwikiqa-training-text-20261004-v5/training.en.jsonl", "rows": 100000, "sha256": "b5169afeea3a24b0eed905deef610c30d74b69426b0dc34a66d1d9b514c80a1e"},
+        "training.tl.jsonl": {"path": "runs/multiwikiqa-training-text-20261004-v5/training.tl.jsonl", "rows": 75658, "sha256": "55d54eb2ad72d89dfeaafaf5f021049e51511173d271d0e4d0659d33445d2404"}
+      },
+      "interpretation": "external general-language training; detected benchmark article exclusions recorded by existing corpus audit"
+    },
+    "approved_articles": {
+      "source_dataset": "alexandrainst/multi-wiki-qa",
+      "source_revision": "9bdb3350487e399bd1cd873e1395290d636db5ce",
+      "files": {
+        "parents.jsonl": {"path": "runs/multiwikiqa-preparation-20261004-v1/parents.jsonl", "rows": 1294, "sha256": "725d81d6e7ec4839524a9c4dac5a9a7430b039c173fd528bf6e0473fa662705b"},
+        "chunks.candidate.jsonl": {"path": "runs/multiwikiqa-preparation-20261004-v1/chunks.candidate.jsonl", "rows": 6261, "sha256": "e0069e790f2331931e21404a049f3195dd2a7d22677b21b6dbd0d46ef3e40019"}
+      },
+      "interpretation": "corpus-adapted student; benchmark article text is exposed, but no benchmark questions, answers or gold labels are training inputs"
+    }
+  },
+  "training_windows": {"max_tokens_including_specials": 512, "max_chars": 1024, "preserve_original_text_offsets": true, "extra_splits_only_if_required": true},
+  "aws": {"profile": "admin-general", "region": "ap-southeast-1", "instance_type": "ml.g4dn.2xlarge", "instances": 1, "training_volume_gb": 60, "training_rate_usd_per_hour": 1.315, "max_runtime_seconds": 86400, "keep_alive_period_seconds": 0, "no_serving_endpoint": true},
+  "authorization": {
+    "teacher_and_compute": "User explicitly requested SEA-LION first, training/distillation on appropriate AWS resources, and shutdown when finished.",
+    "corpora": "User explicitly requested two TokenLearn students: existing external text and approved dataset article text alone. This supersedes—not retroactively validates—the earlier ambiguous external-corpus approval claim.",
+    "dimension": "User explicitly answered: Keep 1,024 dimensions; no PCA reduction (recommended)."
+  },
+  "evaluation_status": "not started; QA semantic review and shared retrieval layout remain separate scoring gates",
+  "prior_artifacts": "preserve unchanged"
+}

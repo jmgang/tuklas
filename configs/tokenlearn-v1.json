@@ -1,0 +1,14 @@
+{
+  "status": "frozen-before-held-out-evaluation",
+  "source": "complete-released-unlabeled-disastir-passage-corpus",
+  "expected_passage_count": 239704,
+  "teacher_input_prefix": "passage: ",
+  "teacher_device": "cpu",
+  "training_device": "cpu",
+  "feature_batch_size": 32,
+  "target_dimension": 256,
+  "shuffle_seed": 20261001,
+  "tokenlearn_version": "0.2.1",
+  "output_model": "models/tokenlearn-custom-e5-f52bf8ec8c71",
+  "features_dir": "runs/tokenlearn-features-v1"
+}

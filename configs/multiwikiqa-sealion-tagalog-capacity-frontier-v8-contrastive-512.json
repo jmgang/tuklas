@@ -1,0 +1,83 @@
+{
+  "protocol": "multiwikiqa-sealion-tagalog-capacity-frontier-v8-contrastive-512",
+  "status": "frozen-v8-drop-teacher-score-mse-512",
+  "language": "tl",
+  "allowed_languages": [
+    "tl"
+  ],
+  "teacher": {
+    "model": "aisingapore/SEA-LION-E5-Embedding-600M",
+    "revision": "6a97cedd22714f3d4eb7c6fd1a452bf310899683",
+    "dimension": 1024
+  },
+  "candidates": [
+    {
+      "id": "full_parent_250k_512",
+      "vocabulary_mode": "full-parent",
+      "dimension": 512,
+      "dtype": "int8",
+      "hard_maximum_complete_artifact_bytes": 140000000
+    }
+  ],
+  "training": {
+    "tokenlearn_corpus_language": "tl",
+    "retrieval_query_language": "tl",
+    "tokenlearn_best_validation_checkpoint_required": true,
+    "tokenlearn_checkpoint_selection": "validation-loss",
+    "query_vector_distillation_weight": 0.0,
+    "retrieval_learning_rate": 0.001,
+    "retrieval_epochs": 32,
+    "retrieval_batch_size": 64,
+    "retrieval_lr_schedule": [],
+    "dynamic_remine_after_epochs": [],
+    "retrieval_early_stopping_patience": 0,
+    "hard_negatives_per_query": 4,
+    "heldout_questions_forbidden": true,
+    "ranking_search": "greedy-rollback",
+    "ranking_data_expansion": {
+      "condition": "v8-contrastive: drop teacher-score MSE only",
+      "source": "approved-training-corpus-only",
+      "heldout_forbidden": true,
+      "minimum_safely_mined_pairs": 15000
+    },
+    "v8_comparison": {
+      "greedy_control_recall_at_10": 0.8324873096446701,
+      "greedy_512_recall_at_10": 0.852791878172589,
+      "report_cohort_questions": 197,
+      "selection_cohort_questions": 129,
+      "straight_search_regression_432": 0.7817258883248731,
+      "straight_search_regression_512": 0.751269035532995,
+      "epochs32_recall_at_10": 0.8781725888324873,
+      "frozen_objective_weights": [
+        1.0,
+        0.5,
+        0.5,
+        0.25
+      ]
+    },
+    "objective_weights": {
+      "listwise": 1.0,
+      "positive_cross_entropy": 0.5,
+      "in_batch_cross_entropy": 0.5,
+      "teacher_score_mse": 0.0
+    }
+  },
+  "evaluation": {
+    "development_language": "tl",
+    "heldout_language": "tl",
+    "development_questions": 197,
+    "heldout_questions": 3984,
+    "stage_metrics": [
+      "direct_model2vec",
+      "post_tokenlearn",
+      "post_retrieval_float32",
+      "post_export_int8"
+    ]
+  },
+  "quality": {
+    "selection_partition": "development-only",
+    "minimum_development_recall_at_10": 0.8746192893401015,
+    "maximum_teacher_recall_at_10_gap": 0.1,
+    "failed_candidate_model_package_retained": false
+  }
+}

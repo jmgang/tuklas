@@ -1,0 +1,11 @@
+{
+  "dataset": "DMIR01/DisastIR",
+  "revision": "65525d5cbee6b52a0db0b064e6315250287d5827",
+  "task": "QA",
+  "category": "meteorological_hydrological",
+  "query_sha256": "55f72c9283e1aa14beee168e34f7ada06fe4e0c48ae941cadf32ff12b65c47ea",
+  "qrels_sha256": "31cbf6accfa220eed04abd0bfa024d791b252b235fcd663e945cb161e3a872b9",
+  "split_seed": "pycon-davao-2026-v1",
+  "evaluation_fraction": 0.2,
+  "positive_relevance_threshold": 1
+}

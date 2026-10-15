@@ -1,0 +1,67 @@
+{
+  "status": "frozen-before-held-out-evaluation",
+  "teacher": {
+    "repo": "intfloat/e5-base-v2",
+    "revision": "f52bf8ec8c7124536f0efb74aca902b2995e5bcd",
+    "license": "mit",
+    "dimension": 768,
+    "max_length": 512,
+    "query_prefix": "query: ",
+    "passage_prefix": "passage: ",
+    "normalize": true,
+    "device": "cpu",
+    "batch_size": 32
+  },
+  "ready_made_baseline": {
+    "repo": "minishlab/potion-retrieval-32M",
+    "revision": "6fc8051fab2a1e0ee76689cf08c853792ac285e7",
+    "license": "mit",
+    "dimension": 512,
+    "max_length": 512,
+    "query_prefix": "",
+    "passage_prefix": "",
+    "normalize": true,
+    "device": "cpu",
+    "batch_size": 1024
+  },
+  "students": {
+    "plain": {
+      "vocabulary": null,
+      "pca_dims": 256,
+      "sif_coefficient": 0.0001,
+      "pooling": "mean",
+      "quantize_to": "float16",
+      "vocabulary_quantization": null,
+      "token_remove_pattern": "\\[unused\\d+\\]",
+      "max_length": 512,
+      "query_prefix": "query: ",
+      "passage_prefix": "passage: ",
+      "normalize": true,
+      "device": "cpu",
+      "batch_size": 1024
+    },
+    "custom_vocabulary": {
+      "status": "built-from-released-unlabeled-passage-text",
+      "candidate_cap": 5000,
+      "min_passage_frequency": 5,
+      "ngram_lengths": [1, 2, 3],
+      "source": "released-unlabeled-passage-text-only"
+    }
+  },
+  "tokenlearn": "not-in-initial-experiment",
+  "library_versions": {
+    "model2vec": "0.9.0",
+    "sentence-transformers": "5.7.0",
+    "transformers": "5.3.0",
+    "torch": "2.14.0",
+    "huggingface-hub": "1.33.0",
+    "numpy": "2.5.3"
+  },
+  "machine_preflight": {
+    "architecture": "arm64",
+    "chip": "Apple M3 Pro",
+    "ram_gib": 18,
+    "available_disk_gib_at_start": 19,
+    "minimum_free_disk_gib_for_distillation": 4
+  }
+}

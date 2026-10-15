@@ -1,0 +1,43 @@
+{
+  "dataset": "wikimedia/wikipedia",
+  "revision": "b04c8d1ceb2f5cd4588862100d08de323dccfbaa",
+  "snapshot": "20231101",
+  "license": ["CC-BY-SA-3.0", "GFDL-source-card-qualifications-apply"],
+  "benchmark_run": "multiwikiqa-preparation-20261004-v1",
+  "files": {
+    "tl": [{"path": "20231101.tl/train-00000-of-00001.parquet", "bytes": 45797527, "sha256": "d5e17007e292b0d5754fe74b28a6e173b03847e2fbe24964b9bd58ba2c178c42"}],
+    "en": [
+      {"path": "20231101.en/train-00000-of-00041.parquet", "bytes": 420296449, "sha256": "382e7f6f09e488b24793a7f7cfc659879d5a22da2cf2efec6491665f0c019677"},
+      {"path": "20231101.en/train-00020-of-00041.parquet", "bytes": 225141733, "sha256": "79ee06627f4ba2fec056fcd23c077a29238bbcbacc3187e8d1a0b47e663e9c7a"},
+      {"path": "20231101.en/train-00040-of-00041.parquet", "bytes": 421630218, "sha256": "fed6addb1da9364fcf42c6953539eecc21bbc2cf3cd33743684e6872ce6c468a"}
+    ]
+  },
+  "sampling": {
+    "seed": "multiwikiqa-training-text-v1-20261004",
+    "maximum_passages_per_language": 100000,
+    "maximum_passages_per_article": 8,
+    "minimum_passage_characters": 200,
+    "maximum_passage_characters": 1024,
+    "overlap_characters": 0,
+    "selection": "lowest-stable-hash-from-all-eligible-passages-in-the-pinned-shards",
+    "scope": "all-Tagalog-source-rows-and-English-shards-0-20-40-not-all-English-Wikipedia"
+  },
+  "overlap_guard": {
+    "partitions": ["development", "evaluation"],
+    "exclude": ["original-source-title-and-url", "resolved-current-title-aliases", "linked-en-tl-translations", "normalized-full-context", "exact-long-paragraph", "sampled-exact-32-word-snippet"],
+    "paragraph_minimum_characters": 160,
+    "snippet_words": 32,
+    "snippet_stride_words": 16,
+    "snippet_minimum_characters": 120,
+    "policy": "reject-whole-training-article-on-any-benchmark-overlap",
+    "semantic_translation_detection": false
+  },
+  "training": {
+    "questions_used": false,
+    "answers_used": false,
+    "teacher_embeddings_produced": false,
+    "teacher_selection": "pending",
+    "tokenizer_preflight": "required-before-featurizing",
+    "article_level_training_validation_split": "required-before-training"
+  }
+}

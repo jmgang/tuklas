@@ -1,0 +1,67 @@
+{
+  "protocol": "multiwikiqa-sealion-tagalog-capacity-frontier-v6-control",
+  "status": "frozen-v3-control-with-persisted-ranking-ready-checkpoint",
+  "language": "tl",
+  "allowed_languages": ["tl"],
+  "teacher": {
+    "model": "aisingapore/SEA-LION-E5-Embedding-600M",
+    "revision": "6a97cedd22714f3d4eb7c6fd1a452bf310899683",
+    "dimension": 1024
+  },
+  "candidates": [
+    {
+      "id": "full_parent_250k_432",
+      "vocabulary_mode": "full-parent",
+      "dimension": 432,
+      "dtype": "int8",
+      "hard_maximum_complete_artifact_bytes": 120000000
+    }
+  ],
+  "training": {
+    "tokenlearn_corpus_language": "tl",
+    "retrieval_query_language": "tl",
+    "tokenlearn_best_validation_checkpoint_required": true,
+    "tokenlearn_checkpoint_selection": "validation-loss",
+    "query_vector_distillation_weight": 0.0,
+    "retrieval_learning_rate": 0.001,
+    "retrieval_epochs": 16,
+    "retrieval_lr_schedule": [],
+    "dynamic_remine_after_epochs": [],
+    "retrieval_early_stopping_patience": 0,
+    "hard_negatives_per_query": 4,
+    "heldout_questions_forbidden": true,
+    "ranking_data_expansion": {
+      "condition": "exact-v3-nonregression-control",
+      "source": "approved-training-corpus-only",
+      "heldout_forbidden": true,
+      "minimum_safely_mined_pairs": 15000
+    },
+    "controlled_repair": {
+      "phase": "v3-control",
+      "persist_ranking_ready_checkpoint": true,
+      "previous_best_recall_at_10": 0.8324873096446701,
+      "control_reproduction_tolerance": 0.01,
+      "future_query_alignment_weights": [0.05, 0.1, 0.25],
+      "future_dynamic_remine_requires_nonregression": true
+    }
+  },
+  "evaluation": {
+    "development_language": "tl",
+    "heldout_language": "tl",
+    "development_questions": 197,
+    "heldout_questions": 3984,
+    "stage_metrics": [
+      "direct_model2vec",
+      "post_tokenlearn",
+      "post_retrieval_float32",
+      "post_export_int8"
+    ]
+  },
+  "quality": {
+    "selection_partition": "development-only",
+    "previous_best_recall_at_10": 0.8324873096446701,
+    "minimum_development_recall_at_10": 0.8746192893401015,
+    "maximum_teacher_recall_at_10_gap": 0.10,
+    "failed_candidate_model_package_retained": false
+  }
+}

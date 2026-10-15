@@ -1,0 +1,12 @@
+{
+  "status": "frozen-before-held-out-evaluation",
+  "isolation": "one-model-per-fresh-Python-process",
+  "cold_load_note": "fresh-process-local-artifact-load; OS disk cache is not flushed",
+  "exact_search_note": "full-corpus matrix search; no ANN index is built",
+  "development_queries_per_category": 4,
+  "passage_batch_size": 128,
+  "warmup_rounds": 2,
+  "repeated_rounds": 5,
+  "search_top_k": 10,
+  "measure_full_corpus_embedding_build": true
+}
